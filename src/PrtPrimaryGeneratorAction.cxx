@@ -113,15 +113,15 @@ void PrtPrimaryGeneratorAction::GeneratePrimaries(G4Event *anEvent) {
 
 if (fRun->getRunType() == 20) {
 
-  G4double momentum = G4UniformRand()*(3.5-0.5);
+  G4double momentum = 0.5 + G4UniformRand()*(3.5-0.5);
   fParticleGun->SetParticleMomentum(momentum*GeV);
   
   G4ThreeVector b( std::sin(22*deg), 0, std::cos(22*deg) );
+  b = b.unit();                   // bar coordinate frame, in x-z plane
 
-  b = b.unit();                   // bar coordinate frame
-  G4ThreeVector u(-1,0,0);         // bar coordinate frame
-  G4ThreeVector w = b.cross(u);   // bar coordinate frame
-  w = w.unit();
+  G4ThreeVector ref (0,-1,0);
+  G4ThreeVector u = ref.cross(b).unit();    // bar coordinate frame, in x-z plane
+  G4ThreeVector w = b.cross(u).unit();      // bar coodinate frame, in y direction
 
   // ---- sample angle ----
   double cosMin = std::cos(140*deg);
@@ -139,13 +139,16 @@ if (fRun->getRunType() == 20) {
 
   dir = dir.unit();
 
-  G4ThreeVector entry(0, 0, 50*cm);
+  G4ThreeVector entry(0, 0, 50*cm); // entry point at the front face of the radiator, 50 cm upstream of the center
 
-  G4double L = 50*cm;   // same as your upstream distance
+  G4double L = 50*cm;   // upstream distance
   G4ThreeVector start = entry - L * dir;
 
   fParticleGun->SetParticlePosition(start);
   fParticleGun->SetParticleMomentumDirection(dir);
+  PrtManager::Instance()->getEvent()->setMomentum(TVector3(dir.x(), dir.y(), dir.z())*momentum);
+  PrtManager::Instance()->getEvent()->setTof(theta*180/M_PI);
+  PrtManager::Instance()->getEvent()->setTofPi(phi*180/M_PI);
 }
 
 
