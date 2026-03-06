@@ -49,7 +49,7 @@ int main(int argc, char **argv) {
 
   G4String macro, events, geometry, radiator, physlist, session, geomTheta, geomPhi, batchmode,
     lensId, particle = "mix_pip", momentum, testVal1, testVal2, testVal3, prismStepX, prismStepY,
-            beamZ, beamX, timeSigma, beamDimension, mcpLayout;
+            beamZ, beamY, beamX, timeSigma, beamDimension, mcpLayout;
   TString infile = "", lutfile = "", pdffile = "", nnfile = "", outfile = "";
   G4int firstevent(0), runtype(0), study(0), fid(0), verbose(0);
 
@@ -85,6 +85,7 @@ int main(int argc, char **argv) {
     else if (G4String(argv[i]) == "-gsx") prismStepX = argv[i + 1];
     else if (G4String(argv[i]) == "-gsy") prismStepY = argv[i + 1];
     else if (G4String(argv[i]) == "-gz") beamZ = argv[i + 1];
+    else if (G4String(argv[i]) == "-gy") beamY = argv[i + 1];
     else if (G4String(argv[i]) == "-gx") beamX = argv[i + 1];
     else if (G4String(argv[i]) == "-tr") timeSigma = argv[i + 1];
     else if (G4String(argv[i]) == "-v") verbose = atoi(argv[i + 1]);

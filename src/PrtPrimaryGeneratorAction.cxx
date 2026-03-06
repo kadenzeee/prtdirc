@@ -116,7 +116,7 @@ if (fRun->getRunType() == 20) {
   G4double momentum = 0.5 + G4UniformRand()*(3.5-0.5);
   fParticleGun->SetParticleMomentum(momentum*GeV);
   
-  G4ThreeVector b( std::sin(22*deg), 0, std::cos(22*deg) );
+  G4ThreeVector b( std::sin(19.54*deg), 0, std::cos(19.54*deg) );
   b = b.unit();                   // bar coordinate frame, in x-z plane
 
   G4ThreeVector ref (0,-1,0);
